@@ -39,10 +39,8 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
         btnSua_NhanVien.setEnabled(false);
         btnXoa_NhanVien.setEnabled(false);
         rdoNam_NhanVien.setSelected(true);
-
         ketnoi = new KetNoi();
         ketnoi.ketnoi();
-
         try {
             filltotable();
         } catch (SQLException ex) {
@@ -524,6 +522,8 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
         btnThem_NhanVien.setEnabled(false);
         btnSua_NhanVien.setEnabled(true);
         btnXoa_NhanVien.setEnabled(true);
+        txtPassword_NhanVien.setEditable(false);
+        txtUsername_NhanVien.setEditable(false);
     }
 
     public void clearForm() {
@@ -546,6 +546,8 @@ public class QuanLyNhanVien extends javax.swing.JInternalFrame {
         btnThem_NhanVien.setEnabled(true);
         btnSua_NhanVien.setEnabled(false);
         btnXoa_NhanVien.setEnabled(false);
+        txtPassword_NhanVien.setEditable(true);
+        txtUsername_NhanVien.setEditable(true);
     }
 
     public void xoa() throws SQLException, ClassNotFoundException {

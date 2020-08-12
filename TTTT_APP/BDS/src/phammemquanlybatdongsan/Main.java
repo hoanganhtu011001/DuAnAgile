@@ -33,11 +33,13 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(this);
         setTitle("TTTT APP");
-//        menuNV.setEnabled(false);
-//        menuBDS.setEnabled(false);
-//        menuTK.setEnabled(false);
-//        menuKH.setEnabled(false);
-//        menuHD.setEnabled(false);
+        menuNV.setEnabled(false);
+        menuBDS.setEnabled(false);
+        menuTK.setEnabled(false);
+        menuKH.setEnabled(false);
+        menuHD.setEnabled(false);
+        dangxuat.setEnabled(false);
+        doiMK.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -47,7 +49,9 @@ public class Main extends javax.swing.JFrame {
         destop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        dangnhap = new javax.swing.JMenuItem();
+        dangxuat = new javax.swing.JMenuItem();
+        doiMK = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         menuNV = new javax.swing.JMenuItem();
         menuKH = new javax.swing.JMenuItem();
@@ -75,13 +79,29 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem1.setText("Đăng nhập");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        dangnhap.setText("Đăng nhập");
+        dangnhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                dangnhapActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(dangnhap);
+
+        dangxuat.setText("Đăng xuất");
+        dangxuat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dangxuatActionPerformed(evt);
+            }
+        });
+        jMenu1.add(dangxuat);
+
+        doiMK.setText("Đổi mật khẩu");
+        doiMK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doiMKActionPerformed(evt);
+            }
+        });
+        jMenu1.add(doiMK);
 
         jMenuBar1.add(jMenu1);
 
@@ -171,7 +191,6 @@ public class Main extends javax.swing.JFrame {
         QuanLyHopDong hopdongview = new QuanLyHopDong();
         hopdongview.setVisible(true);
         destop.add(hopdongview);
-
     }//GEN-LAST:event_menuHDActionPerformed
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
@@ -186,8 +205,20 @@ public class Main extends javax.swing.JFrame {
         destop.add(thongke);
     }//GEN-LAST:event_menuTKActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+    private void dangnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dangnhapActionPerformed
+        destop.removeAll();
+        loginview = new DangNhap();
+        loginview.setVisible(true);
+        destop.add(loginview);
+        
+        loginview.jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+    }//GEN-LAST:event_dangnhapActionPerformed
+
+    private void dangxuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dangxuatActionPerformed
         destop.removeAll();
         loginview = new DangNhap();
         loginview.setVisible(true);
@@ -197,17 +228,31 @@ public class Main extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-    ArrayList<Account> list = new ArrayList<>();
-    KetNoi ketnoi;
+        dangnhap.setEnabled(true);
+        dangxuat.setEnabled(false);
+        menuBDS.setEnabled(false);
+        menuHD.setEnabled(false);
+        menuKH.setEnabled(false);
+        menuNV.setEnabled(false);
+        menuTK.setEnabled(false);
+        doiMK.setEnabled(false);
+    }//GEN-LAST:event_dangxuatActionPerformed
 
+    private void doiMKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doiMKActionPerformed
+        doimatkhau();
+    }//GEN-LAST:event_doiMKActionPerformed
+    
+    public ArrayList<Account> list = new ArrayList<>();
+    KetNoi ketnoi;
+    int index;
+    String oldpass;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        list.removeAll(list);
         ketnoi = new KetNoi();
         ketnoi.ketnoi();
         try {
             String sql = "Select * from NhanVien";
             Statement stt = ketnoi.con.createStatement();
-            System.out.println("e");
             ResultSet rs = stt.executeQuery(sql);
             while (rs.next()) {
                 String usernameNV = rs.getString("UsernameNV");
@@ -218,6 +263,8 @@ public class Main extends javax.swing.JFrame {
             int dem = 0;
             for (Account x : list) {
                 if (loginview.txtUsername_DangNhap.getText().equalsIgnoreCase(x.getUsernameNV()) && loginview.pwdPassword_DangNhap.getText().equalsIgnoreCase(x.getPasswordNV())) {
+                    index = list.indexOf(x);
+                    oldpass = x.getPasswordNV();
                     dem++;
                     if (x.getChucvuNV().equalsIgnoreCase("Quản Lý")) {
                         destop.removeAll();
@@ -242,6 +289,9 @@ public class Main extends javax.swing.JFrame {
                         menuKH.setEnabled(true);
                         menuHD.setEnabled(true);
                     }
+                    dangnhap.setEnabled(false);
+                    dangxuat.setEnabled(true);
+                    doiMK.setEnabled(true);
                 }
             }
             if (dem == 0) {
@@ -253,10 +303,27 @@ public class Main extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
-
-    /**
-     * @param args the command line arguments
-     */
+    public void doimatkhau() {
+        String oldpasscheck = JOptionPane.showInputDialog(this, "Nhập mật khẩu cũ");
+        if(oldpasscheck.equals(oldpass)) {
+            String newpass = JOptionPane.showInputDialog(this, "Nhập mật khẩu mới");
+            String query = "UPDATE NHANVIEN SET PasswordNV = N'"+newpass.trim()+"' WHERE UsernameNV = '"+ list.get(index).getUsernameNV()+"'";
+            ketnoi = new KetNoi();
+            ketnoi.ketnoi();
+            int chon = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn đổi mật khẩu thành "+newpass);
+            if(chon == 0){
+                try {
+                Statement stt = ketnoi.con.createStatement();
+                int update = stt.executeUpdate(query);
+                oldpass = newpass;
+                JOptionPane.showMessageDialog(this, "Đổi mật khẩu thành công");
+                } catch (Exception e) {
+                }
+            }
+        }
+        else{JOptionPane.showMessageDialog(this, "Mật khẩu không chính xác");}
+        
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -291,11 +358,13 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem dangnhap;
+    private javax.swing.JMenuItem dangxuat;
     private javax.swing.JDesktopPane destop;
+    private javax.swing.JMenuItem doiMK;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem menuBDS;
     private javax.swing.JMenuItem menuHD;
     private javax.swing.JMenuItem menuKH;

@@ -42,22 +42,14 @@ public class KetNoi {
 
     public void ketnoi() {
         try {
-            System.out.println("Xin Cho...");
             ketnoi1();
-            System.out.println("Da ket noi");
         } catch (Exception e) {
             try {
-                System.out.println("Xin Cho...");
                 ketnoi2();
-                System.out.println("Da ket noi");
             } catch (Exception ex) {
                 try {
-                    System.out.println("Xin Cho...");
                     ketnoi3();
-                    System.out.println("Da ket noi");
                 } catch (Exception exc) {
-                    System.out.println("Khong The Ket Noi");
-                    System.out.println("Da ket noi");
                 }
             }
         }

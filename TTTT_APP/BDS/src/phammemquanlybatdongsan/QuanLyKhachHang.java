@@ -357,7 +357,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        this.hide();
+        System.exit(0);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void tbl_KhachhangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_KhachhangMouseClicked

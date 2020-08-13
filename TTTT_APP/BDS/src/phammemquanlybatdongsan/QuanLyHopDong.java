@@ -337,7 +337,7 @@ public class QuanLyHopDong extends javax.swing.JInternalFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        this.hide();
+        System.exit(0);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void tbl_HopDongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_HopDongMouseClicked

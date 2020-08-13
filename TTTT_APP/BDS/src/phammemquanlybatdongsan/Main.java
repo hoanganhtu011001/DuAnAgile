@@ -32,7 +32,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         setLocationRelativeTo(this);
-        setTitle("TTTT APP");
+        setTitle("Phần Mềm Quản Lý Bất Động Sản");
         menuNV.setEnabled(false);
         menuBDS.setEnabled(false);
         menuTK.setEnabled(false);
@@ -210,7 +210,7 @@ public class Main extends javax.swing.JFrame {
         loginview = new DangNhap();
         loginview.setVisible(true);
         destop.add(loginview);
-        
+
         loginview.jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -241,11 +241,12 @@ public class Main extends javax.swing.JFrame {
     private void doiMKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doiMKActionPerformed
         doimatkhau();
     }//GEN-LAST:event_doiMKActionPerformed
-    
+
     public ArrayList<Account> list = new ArrayList<>();
     KetNoi ketnoi;
     int index;
     String oldpass;
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         list.removeAll(list);
         ketnoi = new KetNoi();
@@ -303,27 +304,33 @@ public class Main extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
+
     public void doimatkhau() {
-        String oldpasscheck = JOptionPane.showInputDialog(this, "Nhập mật khẩu cũ");
-        if(oldpasscheck.equals(oldpass)) {
-            String newpass = JOptionPane.showInputDialog(this, "Nhập mật khẩu mới");
-            String query = "UPDATE NHANVIEN SET PasswordNV = N'"+newpass.trim()+"' WHERE UsernameNV = '"+ list.get(index).getUsernameNV()+"'";
-            ketnoi = new KetNoi();
-            ketnoi.ketnoi();
-            int chon = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn đổi mật khẩu thành "+newpass);
-            if(chon == 0){
-                try {
-                Statement stt = ketnoi.con.createStatement();
-                int update = stt.executeUpdate(query);
-                oldpass = newpass;
-                JOptionPane.showMessageDialog(this, "Đổi mật khẩu thành công");
-                } catch (Exception e) {
+        try {
+            String oldpasscheck = JOptionPane.showInputDialog(this, "Nhập mật khẩu cũ");
+            if (oldpasscheck.equals(oldpass)) {
+                String newpass = JOptionPane.showInputDialog(this, "Nhập mật khẩu mới");
+                String query = "UPDATE NHANVIEN SET PasswordNV = N'" + newpass.trim() + "' WHERE UsernameNV = '" + list.get(index).getUsernameNV() + "'";
+                ketnoi = new KetNoi();
+                ketnoi.ketnoi();
+                int chon = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn đổi mật khẩu thành " + newpass);
+                if (chon == 0) {
+                    try {
+                        Statement stt = ketnoi.con.createStatement();
+                        int update = stt.executeUpdate(query);
+                        oldpass = newpass;
+                        JOptionPane.showMessageDialog(this, "Đổi mật khẩu thành công");
+                    } catch (Exception e) {
+                    }
                 }
+            } else {
+                JOptionPane.showMessageDialog(this, "Mật khẩu không chính xác");
             }
+        } catch (Exception e) {
         }
-        else{JOptionPane.showMessageDialog(this, "Mật khẩu không chính xác");}
-        
+
     }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

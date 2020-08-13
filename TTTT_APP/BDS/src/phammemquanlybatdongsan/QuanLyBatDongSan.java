@@ -323,7 +323,7 @@ public class QuanLyBatDongSan extends javax.swing.JInternalFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        this.hide();
+        System.exit(0);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void btnMoi_BatDongSanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoi_BatDongSanActionPerformed
